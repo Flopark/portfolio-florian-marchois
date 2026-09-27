@@ -16,6 +16,8 @@ def page(file,title,desc,body,active='',scripts=''):
   html=html.replace(f'src="assets/mode-{material}.gif"',f'src="assets/mode-{material}.jpg" data-animation="assets/mode-{material}.gif" data-still="assets/mode-{material}.jpg"')
   html=html.replace(f'<audio controls preload="none" src="assets/gamme-{material}.wav"',f'<button class="motion-button" data-motion="mode-{material}" aria-pressed="false">Animer la déformée</button><audio controls preload="none" src="assets/gamme-{material}.wav"')
  html=enhance(file,html)
+ # Preserve word boundaries when responsive CSS hides editorial line breaks.
+ html=html.replace("<br>", "<br> ")
  (OUT/file).write_text(html,encoding='utf-8')
 
 def tags(*items):return '<div class="tags">'+''.join(f'<span>{i}</span>' for i in items)+'</div>'
