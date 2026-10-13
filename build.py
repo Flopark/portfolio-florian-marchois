@@ -18,6 +18,14 @@ def page(file,title,desc,body,active='',scripts=''):
  html=enhance(file,html)
  # Preserve word boundaries when responsive CSS hides editorial line breaks.
  html=html.replace("<br>", "<br> ")
+ if file=='index.html':
+  social_title='Florian Marchois — Portfolio d’ingénierie'
+  social_desc='De la modélisation à la décision industrielle : découvrez mes projets en supply chain, simulation et analyse de données.'
+  social_image='https://flopark.github.io/portfolio-florian-marchois/assets/portfolio-linkedin-20261013.jpg'
+  html=html.replace(f'<meta property="og:title" content="{escape(title)} — Florian Marchois">',f'<meta property="og:title" content="{escape(social_title)}">')
+  html=html.replace(f'<meta property="og:description" content="{escape(desc)}">',f'<meta property="og:description" content="{escape(social_desc)}">')
+  social_tags=f'<meta property="og:url" content="https://flopark.github.io/portfolio-florian-marchois/"><meta property="og:site_name" content="Florian Marchois"><meta property="og:locale" content="fr_FR"><meta property="og:image" content="{social_image}"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Florian Marchois — Comprendre. Modéliser. Faire avancer. Aperçu de son portfolio d’ingénierie."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{escape(social_title)}"><meta name="twitter:description" content="{escape(social_desc)}"><meta name="twitter:image" content="{social_image}">'
+  html=html.replace('</head>',social_tags+'</head>')
  (OUT/file).write_text(html,encoding='utf-8')
 
 def tags(*items):return '<div class="tags">'+''.join(f'<span>{i}</span>' for i in items)+'</div>'
